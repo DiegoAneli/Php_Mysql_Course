@@ -1,0 +1,80 @@
+STEP PER AGGIUNGERE DATABASE A MYSQL
+
+- aprire xampp -> fare start su mysql 
+- cliccare sul bottone admin
+
+- si apre la pagina localhost/phpmyadmin
+
+-cliccare "nuovo" nella sidebar a sinistra 
+
+    inserisci un nome per il DATABASE 
+    ( possiamo lasciare "utf8mb4_general_ci" )
+    clicca su Crea
+    (questa operazione puo' essere fatta anche direttamente nella consoel di sql con il comando CREATE 'nome-db')
+
+-dopo aver creato il DB, andiamo nella scheda "SQL" (ora possiamo scrivere comandi sql)
+
+
+//-------  USARE DATABASE ---------
+
+USE 'nome-db';
+
+
+
+//----------  CREARE UNA TABELLA ------------
+
+
+CREATE TABLE nometabella (
+
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(20),
+    cognome VARCHAR(20),
+    eta INT
+
+);
+
+
+
+//INSERIRE DATI
+
+
+INSERT INTO nometabella (nome, cognome, eta)
+
+VALUES ('Mario', 'Rossi', 35),
+       ('Luigi', 'Bianchi', 43),
+       ('Luca', 'Verdi', 19);
+
+
+//LEGGERE DATI
+
+
+SELECT * FROM nometabella;      ( seleziona *(tutto) dal nome tabella )
+
+
+
+//CERCARE DATI
+
+SELECT * FROM nometabella WHERE eta >=18;
+
+
+
+//AGGIORNARE DATI
+
+
+UPDATE nometabella
+SET eta = 36
+WHERE nome = 'Mario';
+
+
+
+//CENCELLARE UN DATO
+
+
+DELETE FROM nometabella
+WHERE nome = 'Mario';
+
+
+
+//CANCELLARE DB
+
+DROP DATABASE nome_database;

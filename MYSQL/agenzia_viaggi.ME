@@ -1,0 +1,140 @@
+// creare DATABASE -> implementare visti(destinazione, durata, costo, tipo:lavorativo, vacanza)
+
+//sulla radice dei db lanciare questi comandi altrimenti utilizzare l interfaccia grafica con pulsante -> nuovo db
+CREATE DATABASE agenzia_viaggi;
+USE agenzia_viaggi;
+
+
+//creare una tabella
+CREATE TABLE destinazioni(
+
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    citta VARCHAR(50),
+    paese VARCHAR(50),
+    prezzo DECIMAL(8, 2),
+    data_partenza DATE,
+    data_ritorno DATE,
+    posti_disponibili INT
+
+);
+
+
+//crearee la tabella clienti
+CREATE TABLE clienti (
+
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(20),
+    cognome VARCHAR(20),
+    email VARCHAR(30),
+    telefono VARCHAR(20)
+
+);
+
+
+//creare la tabella prenotazioni
+
+CREATE TABLE prenotazioni(
+
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    data_prenotazione DATE,
+    num_persone INT,
+
+    id_cliente INT,
+    id_destinazione INT,
+
+    FOREIGN KEY (id_cliente) REFERENCES clienti(id),
+    FOREIGN KEY (id_destinazione) REFERENCES destinazioni(id)
+
+);
+
+
+
+
+
+//////////////         QUERY INTERROGAZIONE DB agenzia_viaggi   //////////////////////
+
+----------  MOSTRARE TUTTE LE DESTINAZIONI DISPONIBILI (con posti > 0) ----------
+
+            SELECT * FROM destinazioni
+            WHERE posti_disponibili > 0;
+
+
+----------  ELENCARE TUTTE LE DESTINAZIONI DI UN PAESE A VS. SCELTA  ----------
+
+            SELECT * FROM destinazioni
+            WHERE paese = 'Italia'; 
+
+
+----------  MOSTRARE LA CITTA, IL PREZZO, E POSTI DELLE DESTINAZIONI CON POSTI MINORI DI 5  ----------
+
+            SELECT citta, prezzo, posti_disponibili FROM destinazioni
+            WHERE posti_disponibili < 5;
+
+
+
+----------  ORDINA TUTTE LE DESTINAZIONI PER PREZZO DECRESCENTE  ----------
+
+            SELECT * FROM destinazioni
+            ORDER BY prezzo DESC;
+
+
+
+----------  ORDINA TUTTE LE DESTINAZIONI PER PREZZO CRESCENTE  ----------
+
+            SELECT * FROM destinazioni
+            ORDER BY prezzo ASC;
+
+
+----------  TROVARE TUTTE LE DESTINAZIONI CON PREZZO COMPRESO TRA UN RANGE DI PREZZI 380 E 750  ----------
+
+            SELECT * FROM destinazioni
+            WHERE prezzo BETWEEN 380 AND 750;
+
+
+
+----------  MOSTRARE IL NUMERO DI DESTINAZIONI(città) PER OGNI PAESE  ----------
+
+            SELECT paese, COUNT(*) AS totale_destinazioni
+            FROM destinazioni
+            GROUP BY paese;
+
+
+
+----------  CALCOLARE IL PREZZO MEDIO DELLE DESTINAZIONI PER OGNI PAESE  ----------
+
+            SELECT paese, AVG(prezzo) AS prezzo_medio
+            FROM destinazioni
+            GROUP BY paese;
+
+
+
+----------  AGGIORNA UNA DESTINAZIONE ESISTENTE( ES.: AUMENTARE I NUMERO DEI POSTI)  ----------
+
+            UPDATE destinazioni
+            SET posti_disponibili = posti_disponibili + 5
+            WHERE id = 9;
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,172 @@
+Mini gestionale per gestire le prenotazioni, le destinazioni e i clienti di un agenzia viaggi
+
+-----------------CLIENTI-------------------
+
+id (PK)
+nome
+cognome
+email
+telefono
+nazione
+
+
+-----------------DESTINAZIONI-------------------
+
+id (PK)
+città
+paese
+prezzo
+data_partenza
+data_ritorno
+
+
+-----------------PRENOTAZIONI-------------------
+
+
+id (PK)
+id_cliente (FK -> CLIENTI.id)
+id_destinazione (FK -> DESTINAZIONI.id)
+data_prenotazione
+num_persone
+
+
+
+-----------------RELAZIONI-------------------
+
+CLIENTE -> PRENOTAZIONI:
+
+1:N (UN CLIENTE PUO' AVERE PIU PRENOTAZIONI)
+
+DESTINAZIONE -> PRENOTAZIONI:
+
+1:N (UNA DESTINAZIONE PUO' ESSERE PRENOTATA DA PIU CLIENTI)
+
+
+
+-----------------QUERY MSQL-------------------
+
+IL NOME DEL DATABASE : agenzia_viaggi
+
+CREATE DATABASE agenzia_viaggi;
+
+USE agenzia_viaggi;
+
+
+//creare la tabella clienti
+
+CREATE TABLE clienti (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  cognome VARCHAR(100) NOT NULL,
+  email VARCHAR(150),
+  telefono VARCHAR(50),
+  nazione VARCHAR(100)
+);
+
+
+
+//creare la tabella destinazioni 
+
+CREATE TABLE destinazioni (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  citta VARCHAR(100) NOT NULL,
+  paese VARCHAR(100) NOT NULL,
+  prezzo DECIMAL(10,2) NOT NULL,
+  data_partenza DATE NOT NULL,
+  data_ritorno DATE NOT NULL,
+  posti_disponibili INT NOT NULL
+);
+
+
+
+
+//creare la tabella prenotazioni 
+
+CREATE TABLE prenotazioni (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_cliente INT NOT NULL,
+  id_destinazione INT NOT NULL,
+  data_prenotazione DATE NOT NULL,
+  num_persone INT NOT NULL,
+
+  CONSTRAINT fk_cliente FOREIGN KEY (id_cliente)     -> Questo vincolo impedisce l'inserimento di una prenotazione con una destinazione che non esiste
+    REFERENCES clienti(id)
+    ON DELETE CASCADE,                               -> Cancella automaticamente le prenotazioni se la destinazione viene eliminata
+
+  CONSTRAINT fk_destinazione FOREIGN KEY (id_destinazione)
+    REFERENCES destinazioni(id)
+    ON DELETE CASCADE
+);
+
+
+
+
+-----------------ARCHITETTURA-------------------
+
+applicazione in un header, footer e body.
+una index(home), con un titolo, un immagine e 3 schede con link alla tabella ( carosello dei paesi e delle città)
+utilizziamo bootstrap
+file di connessione al db
+
+
+//PAGINA CLIENTI: 
+
+//reuperare tutti i clienti
+//paginazione
+//eliminazione
+//modifica -> salvataggio
+
+se clicco su una di queste card, ci porta alla pagina dell entità
+impaginazione dei risultati (offset - limit)
+possibilita di aggiungere/eliminare/modificare un CLIENTE
+possibilita di aggiungere/eliminare/modificare una destinazione
+possibilita di aggiungere/eliminare una prenotazione
+ogni pagina avrà una sua tabella con filtri sui campi
+
+
+
+
+pagina di ricerca 
+
+pagina delle statistiche( guadagni mensili etc) con grafici Chart.js
+
+
+
+---------------------------  CHART 1 -------------------
+
+// PRENOTAZIONI PER MESE
+
+Grafico a linee (line chart)
+asse x : mesi dell anno
+asse y : numero totale di prenotazioni per ciascun mese
+
+// Relazione
+ come varia il numero di prenotazioni nel corso dei mesi di un determinato anno 
+ e per una determinata destinazione, se filtrata
+
+
+---------------------------  CHART 2 -------------------
+
+// ENTRATE MENSILI
+
+Grafico a barre (bar)
+Asse x : mesi dell anno selezionato
+Asse y : somma di tutte le entrate per mese  (calcolata come prezzo * numero di persone) 
+
+// Relazione
+  quanto ha incassato l agenzia di viaggi ogni mese, 
+  in base alle prenotazioni e al numero di persone per prenotazione
+
+
+
+
+
+
+
+
+
+
+esportazione dei risultati delle tabelle in formato csv
+esportazione grafica .png dei risultati delle statistiche
+
+

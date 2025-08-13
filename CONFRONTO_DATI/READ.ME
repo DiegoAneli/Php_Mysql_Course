@@ -1,0 +1,114 @@
+FARE UN CONFRONTO CON DATI IMPORTATI DA UN FILE (GENERALMENTE SI USANO I .CSV)
+CON DEI DATI PRESENTI SUL NOSTRO DATABASE
+
+//Ipotizzo sul db mysql
+MESE VALORE ANNO
+
+12  400  2024 
+06  500  2024 
+...
+
+
+//il CSV
+MESE VALORE ANNO
+
+03 400  2025 
+05 200  2025 
+06 600  2024   -----> dato che verrà confrontato perchè già presente nel db mysql
+...
+
+
+//salva
+//esporta_diff
+//salva_aggiorna
+//salva_unisci
+//salva_somma
+//salva_cronologia
+
+DB ->  MESE, VALORE, ANNO  
+
+Gennaio,120,2024
+Febbraio,180,2025
+
+//COMANDI PER CREARE STRUTTURA DB SU mysql
+
+CREATE TABLE dati (
+    mese VARCHAR(20),
+    valore INT,
+    anno INT,
+    PRIMARY KEY (mese, anno)
+);                    
+
+
+CREATE TABLE cronologia (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    mese VARCHAR(20),
+    valore INT,
+    anno INT,
+    origine VARCHAR(10),
+    data_salvataggio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+//FUNZIONALITA'
+
+Salvare una sessione sul browser -> ci darà la possibilità di aver i dati al refresh della pagina
+
+Scegliere l anno in questione
+Impostare l anno corrente di dafault 
+Tabella per visualizzare i dati
+Caricare i dati del db e mostarli in chart
+gestire il CSV in input
+mostrare i dati del csv in chart
+
+
+
+//----------ESEMPI DI INSERIMENTO DATI CSV PER CONFRONTI------------------------
+
+
+
+---------------------  SALVA.PHP -> scritto esattamente in questo modo:
+
+Mese,Valore,Anno
+Gennaio,500,2025
+Febbraio,600,2025
+Marzo,700,2025
+Aprile,800,2025
+
+
+--------------------   SALVA_AGGIORNA.PHP 
+
+Mese,Valore,Anno
+Maggio,111,2025
+Giugno,122,2025
+Luglio,133,2025
+
+
+--------------------   SALVA_SOMMMA.PHP 
+
+Mese,Valore,Anno
+Gennaio,10,2025
+Febbraio,20,2025
+Marzo,30,2025
+Aprile,40,2025
+Agosto,500,2025
+
+
+
+--------------------   SALVA_CRONOLOGIA.PHP 
+
+Mese,Valore,Anno
+Gennaio,777,2025
+Febbraio,888,2025
+Dicembre,999,2025
+
+
+--------------------   SALVA_UNISCI.PHP 
+
+
+
+Mese,Valore,Anno
+Maggio,111,2025
+Giugno,122,2025
+Luglio,133,2025

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primo esempio di chart</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container my-5">
+    <div class="card shadow">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">
+                Vendite Prodotti(statica)               
+            </h2>
+            <canvas id="graficoBarre">
+            
+            </canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+const ctx = document.getElementById('graficoBarre').getContext('2d');
+const chart = new Chart(ctx, {
+
+    type: 'bar',
+    data: {
+        labels: ['Prodotto A','Prodotto B','Prodotto C','Prodotto D','Prodotto E','Prodotto F','Prodotto G'],
+        datasets : [{
+           
+            label: 'Quantità vendute',
+            data: [12, 19, 3, 5, 9, 7, 10],
+            backgroundColor: 'rgba(54, 162, 235, 1, 87, 65, 2)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales:{
+
+            y: {
+                beginAtZero : true
+            }
+
+        }
+    }
+});
+
+</script>
+    <!--<script src="main.js"></script>-->  
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

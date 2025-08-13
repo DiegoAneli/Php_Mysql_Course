@@ -1,0 +1,53 @@
+////////// Esercizi QUERY da applicare al Db prodotti su phpmyadmin(mysql) ////////// 
+
+----------  MOSTRARE TUTTI I PRODOTTI DISPONIBILI  ----------
+
+SELECT * FROM prodotti
+WHERE disponibile = true;
+
+----------  ELENCARE TUTTI I PRODOTTI DI UNA CATEGORIA A VS. SCELTA  ----------
+
+SELECT * FROM prodotti
+WHERE categoria = 'Informatica';
+
+
+----------  MOSTRARE IL NOME IL PREZZO E LA QUANTITA DEI PRODOTTI CON QUANTITA MINORE DI 5  ----------
+
+SELECT nome, prezzo, quantita FROM prodotti
+WHERE quantita < 5;
+
+----------  ORDINA TUTTI I PRODOTTI PER PREZZO DECRESCENTE  ----------
+
+SELECT * FROM prodotti
+ORDER BY prezzo DESC;
+
+----------  TROVARE TUTTI I PRODOTTI CON PREZZO COMPRESO TRA UN RANGE DI PREZZI SCELTO DA VOI  ----------
+
+SELECT * FROM prodotti
+WHERE prezzo BETWEEN 800 AND 1400;
+
+
+
+
+----------  CALCOLARE IL PREZZO MEDIO PER CATEGORIA  ----------
+
+SELECT categoria, AVG(prezzo) AS prezzo_medio
+FROM prodotti
+GROUP BY categoria;
+
+----------  AGGIORNA UN PRODOTTO ESISTENTE  ----------
+
+UPDATE prodotti
+SET quantita = quantita +5
+WHERE id = 1;
+
+----------  CANCELLA UN PRODOTTO  ----------
+
+DELETE FROM prodotti
+WHERE id = 1;
+
+oppure
+
+DELETE FROM prodotti
+WHERE quantita = 0;
+
